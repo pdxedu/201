@@ -7,7 +7,7 @@ const int SIZE = 30;
 
 void clear();
 void display_dash(char g[],char w[]);
-void check_guess(char g[], char w[], char k);
+bool check_guess(char g[], char w[], char k);
 void word_input(char w[]);
 bool is_match(char w[], char g[]);
 
@@ -22,18 +22,23 @@ int main()
 	word_input(word);
 
     int len = strlen(word);
-	clear();
+	//clear();
     // display word blanked by dashes
 	display_dash(guess, word);
-/////
+	// loop
     do 
 	{
-		check_guess(guess,word, a);
-    	clear();
-    	cout << guess << endl;
-		counter++;
-    } while (!is_match(word,guess) && counter <  len + 3 );
-//////
+		if (check_guess(guess,word, a))
+			{
+			cout << guess << " " << counter << endl;
+			}
+		else
+			{
+			counter++;
+			cout << guess << " " << counter << endl;
+			}
+    } while (!is_match(word,guess) && counter <  6 );
+	// check word
     if (strcmp(word,guess) == 0)
         cout <<"Correct " << " " << counter << endl;
     else
@@ -42,6 +47,7 @@ int main()
     return 0;
 }
 ////////////////////////////////////////////////////////////
+///////////////////Functions Implementations///////////////
 void clear()
 {
     for (int i=0;i<50;i++)
@@ -62,7 +68,7 @@ void display_dash(char g[], char w[])
 	cout << g << endl;
 }
 //////////////////////////////////////
-void check_guess(char g[], char w[], char k)
+bool check_guess(char g[], char w[], char k)
 {
 	cout << "Enter your guess" << endl;
 	cin >> k;
@@ -70,8 +76,12 @@ void check_guess(char g[], char w[], char k)
 	for (int i = 0; i < strlen(w) ; i++)
 	{
 		if (w[i] == k)
+		{
 			g[i] = k;		
+			return true;
+		}
 	}
+	return false;
 }
 //////////////////////////////////////
 void word_input(char w[])
@@ -88,3 +98,4 @@ bool is_match(char w[],char g[])
 
 	return false;
 }
+//////////////////////////////////////
